@@ -1,6 +1,56 @@
-# flask-touch
+# Personal Expense Tracker
 
-A simple Hello World project using Flask and Redis, containerized with Docker and orchestrated using Docker Compose.
+## Requirements
+
+- Users can add, edit, and delete expenses.
+- Categorize expenses (food, transport, etc.).
+- View expenses by day, week, month.
+- Visualize spending with charts.
+- User authentication (optional for privacy).
+- Export data (CSV, PDF).
+
+## Software Development Life Cycle (SDLC) — Personal Expense Tracker
+
+### 1. Requirements
+
+- Users can add, edit, and delete expenses.
+- Categorize expenses (food, transport, etc.).
+- View expenses by day, week, month.
+- Visualize spending with charts.
+- User authentication (optional for privacy).
+- Export data (CSV, PDF).
+
+### 2. Design
+
+- Architecture: Flask backend API, database for expenses and categories, frontend for UI and charts.
+- Components: Flask (API), database (SQLite/PostgreSQL), frontend (HTML/JS or React), chart library (Chart.js).
+- Endpoints: CRUD for expenses and categories, user authentication, export data.
+- Project structure: Separate folders for backend and frontend code.
+
+### 3. Implementation
+
+- Build Flask API for expenses, categories, and users.
+- Set up database models and migrations.
+- Create frontend for data entry, visualization, and export.
+- Integrate chart library for spending visualization.
+- Add authentication and export features.
+
+### 4. Testing
+
+- Manual and automated testing of API endpoints and frontend UI.
+- Validate data, handle errors, and test edge cases.
+
+### 5. Deployment
+
+- Containerize backend and frontend with Docker.
+- Use Docker Compose for multi-service orchestration.
+- Provide setup and deployment instructions in README.
+
+### 6. Maintenance
+
+- Update dependencies and improve features.
+- Monitor for bugs and fix issues.
+- Add new functionality based on user feedback.
 
 ## Features
 
