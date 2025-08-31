@@ -1,6 +1,0 @@
-# Flask and Redis
-
-Flask
-Flask-SQLAlchemy
-Flask-CORS
-psycopg2-binary
