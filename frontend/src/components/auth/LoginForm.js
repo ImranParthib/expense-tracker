@@ -1,27 +1,27 @@
-import React, { useState } from 'react';
-import { Form, Button, Alert, Card, Spinner } from 'react-bootstrap';
-import { Link } from 'react-router-dom';
-import { useAuth } from '../contexts/AuthContext';
+import React, { useState } from "react";
+import { Form, Button, Alert, Card, Spinner } from "react-bootstrap";
+import { Link } from "react-router-dom";
+import { useAuth } from "../contexts/AuthContext";
 
 const LoginForm = ({ onSuccess }) => {
   const [formData, setFormData] = useState({
-    email: '',
-    password: ''
+    email: "",
+    password: "",
   });
   const [validated, setValidated] = useState(false);
   const { login, loading, error } = useAuth();
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormData(prev => ({
+    setFormData((prev) => ({
       ...prev,
-      [name]: value
+      [name]: value,
     }));
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    
+
     const form = e.currentTarget;
     if (form.checkValidity() === false) {
       e.stopPropagation();
@@ -48,7 +48,7 @@ const LoginForm = ({ onSuccess }) => {
             {error}
           </Alert>
         )}
-        
+
         <Form noValidate validated={validated} onSubmit={handleSubmit}>
           <Form.Group className="mb-3">
             <Form.Label>Email Address</Form.Label>
@@ -112,7 +112,7 @@ const LoginForm = ({ onSuccess }) => {
       </Card.Body>
       <Card.Footer className="text-center bg-light">
         <small className="text-muted">
-          Don't have an account?{' '}
+          Don't have an account?{" "}
           <Link to="/register" className="text-primary text-decoration-none">
             Create one here
           </Link>

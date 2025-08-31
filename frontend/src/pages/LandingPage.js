@@ -1,7 +1,7 @@
-import React from 'react';
-import { Container, Row, Col, Button, Card } from 'react-bootstrap';
-import { useNavigate } from 'react-router-dom';
-import { useAuth } from '../contexts/AuthContext';
+import React from "react";
+import { Container, Row, Col, Button, Card } from "react-bootstrap";
+import { useNavigate } from "react-router-dom";
+import { useAuth } from "../contexts/AuthContext";
 
 const LandingPage = () => {
   const navigate = useNavigate();
@@ -10,7 +10,7 @@ const LandingPage = () => {
   // Redirect authenticated users to dashboard
   React.useEffect(() => {
     if (isAuthenticated) {
-      navigate('/dashboard');
+      navigate("/dashboard");
     }
   }, [isAuthenticated, navigate]);
 
@@ -25,21 +25,22 @@ const LandingPage = () => {
                 Take Control of Your Finances
               </h1>
               <p className="lead mb-4">
-                Track expenses, manage categories, and gain insights into your spending 
-                habits with our powerful and intuitive expense tracking application.
+                Track expenses, manage categories, and gain insights into your
+                spending habits with our powerful and intuitive expense tracking
+                application.
               </p>
               <div className="d-flex gap-3">
                 <Button
                   variant="light"
                   size="lg"
-                  onClick={() => navigate('/register')}
+                  onClick={() => navigate("/register")}
                 >
                   Get Started Free
                 </Button>
                 <Button
                   variant="outline-light"
                   size="lg"
-                  onClick={() => navigate('/login')}
+                  onClick={() => navigate("/login")}
                 >
                   Sign In
                 </Button>
@@ -76,7 +77,9 @@ const LandingPage = () => {
         <Container>
           <Row className="text-center mb-5">
             <Col>
-              <h2 className="display-5 fw-bold mb-3">Why Choose ExpenseTracker Pro?</h2>
+              <h2 className="display-5 fw-bold mb-3">
+                Why Choose ExpenseTracker Pro?
+              </h2>
               <p className="lead text-muted">
                 Built with modern technology and designed for ease of use
               </p>
@@ -86,13 +89,16 @@ const LandingPage = () => {
             <Col md={4} className="mb-4">
               <Card className="h-100 border-0 shadow-sm">
                 <Card.Body className="text-center p-4">
-                  <div className="text-primary mb-3" style={{ fontSize: '3rem' }}>
+                  <div
+                    className="text-primary mb-3"
+                    style={{ fontSize: "3rem" }}
+                  >
                     🔒
                   </div>
                   <Card.Title>Secure & Private</Card.Title>
                   <Card.Text>
-                    Your financial data is protected with enterprise-grade security 
-                    and JWT authentication.
+                    Your financial data is protected with enterprise-grade
+                    security and JWT authentication.
                   </Card.Text>
                 </Card.Body>
               </Card>
@@ -100,13 +106,16 @@ const LandingPage = () => {
             <Col md={4} className="mb-4">
               <Card className="h-100 border-0 shadow-sm">
                 <Card.Body className="text-center p-4">
-                  <div className="text-success mb-3" style={{ fontSize: '3rem' }}>
+                  <div
+                    className="text-success mb-3"
+                    style={{ fontSize: "3rem" }}
+                  >
                     📱
                   </div>
                   <Card.Title>Mobile Responsive</Card.Title>
                   <Card.Text>
-                    Access your expenses anywhere, anytime with our fully responsive 
-                    design that works on all devices.
+                    Access your expenses anywhere, anytime with our fully
+                    responsive design that works on all devices.
                   </Card.Text>
                 </Card.Body>
               </Card>
@@ -114,12 +123,12 @@ const LandingPage = () => {
             <Col md={4} className="mb-4">
               <Card className="h-100 border-0 shadow-sm">
                 <Card.Body className="text-center p-4">
-                  <div className="text-info mb-3" style={{ fontSize: '3rem' }}>
+                  <div className="text-info mb-3" style={{ fontSize: "3rem" }}>
                     ⚡
                   </div>
                   <Card.Title>Real-time Updates</Card.Title>
                   <Card.Text>
-                    See your expense data update instantly with our fast and 
+                    See your expense data update instantly with our fast and
                     efficient backend API.
                   </Card.Text>
                 </Card.Body>
@@ -141,7 +150,7 @@ const LandingPage = () => {
               <Button
                 variant="primary"
                 size="lg"
-                onClick={() => navigate('/register')}
+                onClick={() => navigate("/register")}
               >
                 Create Your Free Account
               </Button>

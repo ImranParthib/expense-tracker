@@ -1,8 +1,14 @@
-import React from 'react';
-import { Navbar as BootstrapNavbar, Nav, NavDropdown, Container, Button } from 'react-bootstrap';
-import { LinkContainer } from 'react-router-bootstrap';
-import { useAuth } from '../../contexts/AuthContext';
-import { useNavigate } from 'react-router-dom';
+import React from "react";
+import {
+  Navbar as BootstrapNavbar,
+  Nav,
+  NavDropdown,
+  Container,
+  Button,
+} from "react-bootstrap";
+import { LinkContainer } from "react-router-bootstrap";
+import { useAuth } from "../../contexts/AuthContext";
+import { useNavigate } from "react-router-dom";
 
 const Navbar = () => {
   const { isAuthenticated, user, logout } = useAuth();
@@ -10,7 +16,7 @@ const Navbar = () => {
 
   const handleLogout = () => {
     logout();
-    navigate('/');
+    navigate("/");
   };
 
   return (
@@ -22,7 +28,7 @@ const Navbar = () => {
             ExpenseTracker Pro
           </BootstrapNavbar.Brand>
         </LinkContainer>
-        
+
         <BootstrapNavbar.Toggle aria-controls="basic-navbar-nav" />
         <BootstrapNavbar.Collapse id="basic-navbar-nav">
           {isAuthenticated ? (
@@ -47,13 +53,13 @@ const Navbar = () => {
                   </Nav.Link>
                 </LinkContainer>
               </Nav>
-              
+
               <Nav>
                 <NavDropdown
                   title={
                     <>
                       <i className="bi bi-person-circle me-1"></i>
-                      {user?.first_name || 'User'}
+                      {user?.first_name || "User"}
                     </>
                   }
                   id="user-dropdown"

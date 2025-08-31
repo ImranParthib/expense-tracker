@@ -1,16 +1,16 @@
-import React, { useState } from 'react';
-import { Form, Button, Alert, Card, Row, Col, Spinner } from 'react-bootstrap';
-import { Link } from 'react-router-dom';
-import { useAuth } from '../../contexts/AuthContext';
+import React, { useState } from "react";
+import { Form, Button, Alert, Card, Row, Col, Spinner } from "react-bootstrap";
+import { Link } from "react-router-dom";
+import { useAuth } from "../../contexts/AuthContext";
 
 const RegisterForm = ({ onSuccess }) => {
   const [formData, setFormData] = useState({
-    firstName: '',
-    lastName: '',
-    email: '',
-    username: '',
-    password: '',
-    confirmPassword: ''
+    firstName: "",
+    lastName: "",
+    email: "",
+    username: "",
+    password: "",
+    confirmPassword: "",
   });
   const [validated, setValidated] = useState(false);
   const [passwordMatch, setPasswordMatch] = useState(true);
@@ -18,15 +18,16 @@ const RegisterForm = ({ onSuccess }) => {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormData(prev => ({
+    setFormData((prev) => ({
       ...prev,
-      [name]: value
+      [name]: value,
     }));
 
     // Check password match on confirm password change
-    if (name === 'confirmPassword' || name === 'password') {
-      const password = name === 'password' ? value : formData.password;
-      const confirmPassword = name === 'confirmPassword' ? value : formData.confirmPassword;
+    if (name === "confirmPassword" || name === "password") {
+      const password = name === "password" ? value : formData.password;
+      const confirmPassword =
+        name === "confirmPassword" ? value : formData.confirmPassword;
       setPasswordMatch(password === confirmPassword);
     }
   };
@@ -37,20 +38,25 @@ const RegisterForm = ({ onSuccess }) => {
     const hasLowerCase = /[a-z]/.test(password);
     const hasNumbers = /\d/.test(password);
     const hasSpecialChar = /[!@#$%^&*(),.?":{}|<>]/.test(password);
-    
+
     return {
-      isValid: minLength && hasUpperCase && hasLowerCase && hasNumbers && hasSpecialChar,
+      isValid:
+        minLength &&
+        hasUpperCase &&
+        hasLowerCase &&
+        hasNumbers &&
+        hasSpecialChar,
       minLength,
       hasUpperCase,
       hasLowerCase,
       hasNumbers,
-      hasSpecialChar
+      hasSpecialChar,
     };
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    
+
     const form = e.currentTarget;
     if (form.checkValidity() === false || !passwordMatch) {
       e.stopPropagation();
@@ -63,7 +69,7 @@ const RegisterForm = ({ onSuccess }) => {
       last_name: formData.lastName,
       email: formData.email,
       username: formData.username,
-      password: formData.password
+      password: formData.password,
     };
 
     const result = await register(userData);
@@ -87,7 +93,7 @@ const RegisterForm = ({ onSuccess }) => {
             {error}
           </Alert>
         )}
-        
+
         <Form noValidate validated={validated} onSubmit={handleSubmit}>
           <Row>
             <Col md={6}>
@@ -169,29 +175,92 @@ const RegisterForm = ({ onSuccess }) => {
             <Form.Control.Feedback type="invalid">
               Password must meet all requirements below.
             </Form.Control.Feedback>
-            
+
             {formData.password && (
               <div className="mt-2">
                 <small className="text-muted">Password requirements:</small>
-                <ul className="list-unstyled mt-1" style={{ fontSize: '0.8rem' }}>
-                  <li className={passwordValidation.minLength ? 'text-success' : 'text-danger'}>
-                    <i className={`bi ${passwordValidation.minLength ? 'bi-check-circle-fill' : 'bi-x-circle-fill'} me-1`}></i>
+                <ul
+                  className="list-unstyled mt-1"
+                  style={{ fontSize: "0.8rem" }}
+                >
+                  <li
+                    className={
+                      passwordValidation.minLength
+                        ? "text-success"
+                        : "text-danger"
+                    }
+                  >
+                    <i
+                      className={`bi ${
+                        passwordValidation.minLength
+                          ? "bi-check-circle-fill"
+                          : "bi-x-circle-fill"
+                      } me-1`}
+                    ></i>
                     At least 8 characters
                   </li>
-                  <li className={passwordValidation.hasUpperCase ? 'text-success' : 'text-danger'}>
-                    <i className={`bi ${passwordValidation.hasUpperCase ? 'bi-check-circle-fill' : 'bi-x-circle-fill'} me-1`}></i>
+                  <li
+                    className={
+                      passwordValidation.hasUpperCase
+                        ? "text-success"
+                        : "text-danger"
+                    }
+                  >
+                    <i
+                      className={`bi ${
+                        passwordValidation.hasUpperCase
+                          ? "bi-check-circle-fill"
+                          : "bi-x-circle-fill"
+                      } me-1`}
+                    ></i>
                     One uppercase letter
                   </li>
-                  <li className={passwordValidation.hasLowerCase ? 'text-success' : 'text-danger'}>
-                    <i className={`bi ${passwordValidation.hasLowerCase ? 'bi-check-circle-fill' : 'bi-x-circle-fill'} me-1`}></i>
+                  <li
+                    className={
+                      passwordValidation.hasLowerCase
+                        ? "text-success"
+                        : "text-danger"
+                    }
+                  >
+                    <i
+                      className={`bi ${
+                        passwordValidation.hasLowerCase
+                          ? "bi-check-circle-fill"
+                          : "bi-x-circle-fill"
+                      } me-1`}
+                    ></i>
                     One lowercase letter
                   </li>
-                  <li className={passwordValidation.hasNumbers ? 'text-success' : 'text-danger'}>
-                    <i className={`bi ${passwordValidation.hasNumbers ? 'bi-check-circle-fill' : 'bi-x-circle-fill'} me-1`}></i>
+                  <li
+                    className={
+                      passwordValidation.hasNumbers
+                        ? "text-success"
+                        : "text-danger"
+                    }
+                  >
+                    <i
+                      className={`bi ${
+                        passwordValidation.hasNumbers
+                          ? "bi-check-circle-fill"
+                          : "bi-x-circle-fill"
+                      } me-1`}
+                    ></i>
                     One number
                   </li>
-                  <li className={passwordValidation.hasSpecialChar ? 'text-success' : 'text-danger'}>
-                    <i className={`bi ${passwordValidation.hasSpecialChar ? 'bi-check-circle-fill' : 'bi-x-circle-fill'} me-1`}></i>
+                  <li
+                    className={
+                      passwordValidation.hasSpecialChar
+                        ? "text-success"
+                        : "text-danger"
+                    }
+                  >
+                    <i
+                      className={`bi ${
+                        passwordValidation.hasSpecialChar
+                          ? "bi-check-circle-fill"
+                          : "bi-x-circle-fill"
+                      } me-1`}
+                    ></i>
                     One special character
                   </li>
                 </ul>
@@ -244,7 +313,7 @@ const RegisterForm = ({ onSuccess }) => {
       </Card.Body>
       <Card.Footer className="text-center bg-light">
         <small className="text-muted">
-          Already have an account?{' '}
+          Already have an account?{" "}
           <Link to="/login" className="text-primary text-decoration-none">
             Sign in here
           </Link>

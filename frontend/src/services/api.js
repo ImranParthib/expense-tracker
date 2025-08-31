@@ -11,7 +11,7 @@ const API = axios.create({
 // Request interceptor to add JWT token
 API.interceptors.request.use(
   (config) => {
-    const token = localStorage.getItem('access_token');
+    const token = localStorage.getItem("access_token");
     if (token) {
       config.headers.Authorization = `Bearer ${token}`;
     }
@@ -27,34 +27,37 @@ API.interceptors.response.use(
   (response) => response,
   async (error) => {
     const originalRequest = error.config;
-    
+
     if (error.response?.status === 401 && !originalRequest._retry) {
       originalRequest._retry = true;
-      
+
       try {
-        const refreshToken = localStorage.getItem('refresh_token');
+        const refreshToken = localStorage.getItem("refresh_token");
         if (refreshToken) {
-          const response = await axios.post(`${API.defaults.baseURL}/auth/refresh`, {
-            refresh_token: refreshToken
-          });
-          
+          const response = await axios.post(
+            `${API.defaults.baseURL}/auth/refresh`,
+            {
+              refresh_token: refreshToken,
+            }
+          );
+
           const { access_token } = response.data;
-          localStorage.setItem('access_token', access_token);
-          
+          localStorage.setItem("access_token", access_token);
+
           // Retry original request with new token
           originalRequest.headers.Authorization = `Bearer ${access_token}`;
           return API(originalRequest);
         }
       } catch (refreshError) {
         // Refresh failed, redirect to login
-        localStorage.removeItem('access_token');
-        localStorage.removeItem('refresh_token');
-        localStorage.removeItem('user');
-        window.location.href = '/login';
+        localStorage.removeItem("access_token");
+        localStorage.removeItem("refresh_token");
+        localStorage.removeItem("user");
+        window.location.href = "/login";
         return Promise.reject(refreshError);
       }
     }
-    
+
     return Promise.reject(error);
   }
 );
@@ -63,13 +66,14 @@ API.interceptors.response.use(
 export const authAPI = {
   // Register new user
   register: (userData) => API.post("/auth/register", userData),
-  
+
   // Login user
   login: (email, password) => API.post("/auth/login", { email, password }),
-  
+
   // Refresh token
-  refreshToken: (refreshToken) => API.post("/auth/refresh", { refresh_token: refreshToken }),
-  
+  refreshToken: (refreshToken) =>
+    API.post("/auth/refresh", { refresh_token: refreshToken }),
+
   // Logout (optional - for server-side logout)
   logout: () => API.post("/auth/logout"),
 };
@@ -84,10 +88,11 @@ export const categoryAPI = {
 
   // Create new category
   createCategory: (categoryData) => API.post("/categories", categoryData),
-  
+
   // Update category
-  updateCategory: (id, categoryData) => API.put(`/categories/${id}`, categoryData),
-  
+  updateCategory: (id, categoryData) =>
+    API.put(`/categories/${id}`, categoryData),
+
   // Delete category
   deleteCategory: (id) => API.delete(`/categories/${id}`),
 };
@@ -102,13 +107,13 @@ export const expenseAPI = {
 
   // Create new expense
   createExpense: (expenseData) => API.post("/expenses", expenseData),
-  
+
   // Update expense
   updateExpense: (id, expenseData) => API.put(`/expenses/${id}`, expenseData),
-  
+
   // Delete expense
   deleteExpense: (id) => API.delete(`/expenses/${id}`),
-  
+
   // Get expense statistics
   getExpenseStats: (params = {}) => API.get("/expenses/stats", { params }),
 };
@@ -118,21 +123,21 @@ export const handleAPIError = (error) => {
   if (error.response) {
     // Server responded with error status
     return {
-      message: error.response.data?.error || 'An error occurred',
+      message: error.response.data?.error || "An error occurred",
       status: error.response.status,
-      details: error.response.data?.details
+      details: error.response.data?.details,
     };
   } else if (error.request) {
     // Request made but no response received
     return {
-      message: 'Network error. Please check your connection.',
-      status: 0
+      message: "Network error. Please check your connection.",
+      status: 0,
     };
   } else {
     // Something else happened
     return {
-      message: error.message || 'An unexpected error occurred',
-      status: 0
+      message: error.message || "An unexpected error occurred",
+      status: 0,
     };
   }
 };
