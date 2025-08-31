@@ -89,3 +89,57 @@ function App() {
 }
 
 export default App;
+          </div>
+        </Container>
+      </div>
+    );
+  }
+
+  return (
+    <div className="App">
+      <Container>
+        <div className="main-container">
+          <div className="header-section">
+            <h1 className="header-title">💰 Personal Expense Tracker</h1>
+            <p className="header-subtitle">
+              Manage your expenses and categories with ease
+            </p>
+          </div>
+
+          {error && (
+            <Alert variant="danger" dismissible onClose={() => setError("")}>
+              <Alert.Heading>Connection Error</Alert.Heading>
+              <p>{error}</p>
+              <hr />
+              <p className="mb-0">
+                Make sure your Flask backend is running on{" "}
+                <strong>http://localhost:5000</strong>
+              </p>
+            </Alert>
+          )}
+
+          <Row>
+            <Col lg={12}>
+              <CategoryManager
+                categories={categories}
+                setCategories={setCategories}
+              />
+            </Col>
+          </Row>
+
+          <Row>
+            <Col lg={12}>
+              <ExpenseManager
+                expenses={expenses}
+                setExpenses={setExpenses}
+                categories={categories}
+              />
+            </Col>
+          </Row>
+        </div>
+      </Container>
+    </div>
+  );
+}
+
+export default App;
