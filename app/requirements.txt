@@ -1,4 +1,5 @@
 # Flask and Redis
 
 Flask
-Redis
+Flask-SQLAlchemy
+psycopg2-binary

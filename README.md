@@ -54,10 +54,13 @@
 
 ## Features
 
-- Flask web server
-- Redis for counting page views
+- Add, edit, and delete expenses
+- Categorize expenses (food, transport, etc.)
+- View expenses by day, week, month
+- Visualize spending with charts
+- User authentication (optional for privacy)
+- Export data (CSV, PDF)
 - Dockerized for easy setup and deployment
-- Multi-container orchestration with Docker Compose
 
 ## Getting Started
 
@@ -77,7 +80,7 @@
    ```bash
    docker-compose up --build
    ```
-3. Visit `http://localhost:5000` in your browser. You should see the Hello World message and a page view counter.
+3. Visit `http://localhost:5000` in your browser. You should see the Expense Tracker app homepage.
 
 ### Stopping the Project
 
@@ -88,7 +91,7 @@ docker-compose down --volumes --remove-orphans
 ## Project Structure
 
 ```
-flask-touch/
+expense-tracker/
 ├── app/
 │   ├── app.py
 │   └── requirements.txt
