@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Form, Button, Alert, Card, Spinner } from "react-bootstrap";
 import { Link } from "react-router-dom";
-import { useAuth } from "../contexts/AuthContext";
+import { useAuth } from "../../contexts/AuthContext";
 
 const LoginForm = ({ onSuccess }) => {
   const [formData, setFormData] = useState({
