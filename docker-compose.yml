@@ -11,8 +11,11 @@ services:
       - "5432:5432"
     volumes:
       - pgdata:/var/lib/postgresql/data
-  web:
-    build: .
+
+  backend:
+    build: 
+      context: .
+      dockerfile: Dockerfile
     command: python app.py
     ports:
       - "5000:5000"
@@ -20,7 +23,23 @@ services:
       - db
     environment:
       - DATABASE_URL=postgresql://postgres:postgres@db:5432/expense_tracker
+    volumes:
+      - ./app:/app
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    depends_on:
+      - backend
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
+    environment:
+      - CHOKIDAR_USEPOLLING=true
+      - REACT_APP_API_URL=http://localhost:5000
 
 volumes:
   pgdata:
-      
