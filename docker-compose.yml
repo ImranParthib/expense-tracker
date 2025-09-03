@@ -1,4 +1,4 @@
-version: '3.8'
+version: "3.8"
 
 services:
   db:
@@ -18,7 +18,7 @@ services:
       retries: 5
 
   backend:
-    build: 
+    build:
       context: ./backend
       dockerfile: Dockerfile
     command: python run.py
@@ -28,11 +28,11 @@ services:
       db:
         condition: service_healthy
     environment:
-      - FLASK_ENV=development
-      - DATABASE_URL=postgresql://postgres:postgres@db:5432/expense_tracker
-      - SECRET_KEY=dev-secret-key-change-in-production
-      - JWT_SECRET_KEY=jwt-secret-key-change-in-production
-      - CORS_ORIGINS=http://localhost:3000
+      FLASK_ENV: development
+      DATABASE_URL: postgresql://postgres:postgres@db:5432/expense_tracker
+      SECRET_KEY: dev-secret-key-change-in-production
+      JWT_SECRET_KEY: jwt-secret-key-change-in-production
+      CORS_ORIGINS: http://localhost:3000
     volumes:
       - ./backend:/app
     healthcheck:
@@ -54,8 +54,8 @@ services:
       - ./frontend:/app
       - /app/node_modules
     environment:
-      - CHOKIDAR_USEPOLLING=true
-      - REACT_APP_API_URL=http://localhost:5000
+      CHOKIDAR_USEPOLLING: "true"
+      REACT_APP_API_URL: http://localhost:5000/api/v1
 
 volumes:
   pgdata:
