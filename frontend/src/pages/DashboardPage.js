@@ -30,7 +30,7 @@ const DashboardPage = () => {
       const endOfMonth = new Date(now.getFullYear(), now.getMonth() + 1, 0);
 
       // Fetch data in parallel
-      const [expensesResponse, categoriesResponse, monthlyExpensesResponse] =
+      const [expensesResponse, categoriesResponse, monthlySummaryResponse] =
         await Promise.all([
           expenseAPI.getExpenses({
             per_page: 5,
@@ -38,34 +38,30 @@ const DashboardPage = () => {
             sort_order: "desc",
           }),
           categoryAPI.getCategories(),
-          expenseAPI.getExpenses({
+          expenseAPI.getExpenseSummary({
             start_date: startOfMonth.toISOString().split("T")[0],
             end_date: endOfMonth.toISOString().split("T")[0],
           }),
         ]);
 
-      // Calculate monthly total
+      // Calculate monthly total from summary endpoint
       const monthlyExpenses =
-        monthlyExpensesResponse.data.data?.reduce(
-          (total, expense) => total + parseFloat(expense.amount || 0),
-          0
-        ) || 0;
+        monthlySummaryResponse.data?.summary?.total_amount || 0;
 
-      // Calculate total expenses
-      const allExpensesResponse = await expenseAPI.getExpenses({
-        per_page: 1000,
-      });
+      // Get overall totals using summary (without date filters)
+      const overallSummaryResponse = await expenseAPI.getExpenseSummary();
       const totalExpenses =
-        allExpensesResponse.data.data?.reduce(
-          (total, expense) => total + parseFloat(expense.amount || 0),
-          0
-        ) || 0;
+        overallSummaryResponse.data?.summary?.total_amount || 0;
 
       setDashboardData({
         totalExpenses,
         monthlyExpenses,
-        categoriesCount: categoriesResponse.data.total || 0,
-        recentExpenses: expensesResponse.data.data || [],
+        categoriesCount:
+          categoriesResponse.data.total ||
+          categoriesResponse.data.categories?.length ||
+          0,
+        recentExpenses:
+          expensesResponse.data.items || expensesResponse.data.data || [],
         expensesByCategory: categoriesResponse.data.categories || [],
       });
     } catch (err) {

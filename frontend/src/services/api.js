@@ -116,6 +116,9 @@ export const expenseAPI = {
 
   // Get expense statistics
   getExpenseStats: (params = {}) => API.get("/expenses/stats", { params }),
+
+  // Get expense summary (totals, averages, breakdowns)
+  getExpenseSummary: (params = {}) => API.get("/expenses/summary", { params }),
 };
 
 // Utility function to handle API errors
